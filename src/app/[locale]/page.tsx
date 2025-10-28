@@ -1,6 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 import { useTranslations } from "next-intl";
-import Test from "../components/Test";
+import Home from "@/components/Homepage";
 
 export default async function HomePage({
   params,
@@ -11,7 +11,7 @@ export default async function HomePage({
 
   setRequestLocale(locale);
 
-  return <HomePageContent />;
+  return <Home />;
 }
 
 function HomePageContent() {
@@ -21,7 +21,6 @@ function HomePageContent() {
     <main>
       <h1>{t("title")}</h1>
       <p>{t("description")}</p>
-      <Test />
     </main>
   );
 }

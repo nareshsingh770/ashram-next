@@ -1,6 +1,28 @@
-import React from "react";
+"use client";
+import ButtonFilled from "@/components/atoms/ButtonFilled";
+import InputFeild from "@/components/atoms/InputFeild";
+import { userSignup } from "@/server/actions/auth.actions";
+import React, { useActionState, useEffect, useState } from "react";
 
-const login = () => {
+const initialState: ActionState = {
+  zodErrors: {},
+  apiErrors: {},
+  message: "",
+  success: false,
+};
+
+const signup = () => {
+  const [state, formAction] = useActionState(userSignup, initialState);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (state?.message && !state.success) {
+      setErrorMessage(state.message);
+    } else if (state?.success) {
+      window.location.href = "/";
+    }
+  }, [state?.message, state?.success]);
+
   return (
     <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
       <div className="relative py-3 sm:max-w-xl sm:mx-auto">
@@ -8,47 +30,25 @@ const login = () => {
         <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
           <div className="max-w-md mx-auto">
             <div>
-              <h1 className="text-2xl font-semibold">Signup</h1>
+              <h1 className="text-2xl font-semibold">Login</h1>
             </div>
             <div className="divide-y divide-gray-200">
-              <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                <div className="relative">
-                  <input
-                    autoComplete="off"
-                    id="email"
-                    name="email"
-                    type="text"
-                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                    placeholder="Email address"
-                  />
-                  <label
-                    htmlFor="email"
-                    className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                  >
-                    Email Address
-                  </label>
-                </div>
-                <div className="relative">
-                  <input
-                    autoComplete="off"
-                    id="password"
-                    name="password"
-                    type="password"
-                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                    placeholder="Password"
-                  />
-                  <label
-                    htmlFor="password"
-                    className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                  >
-                    Password
-                  </label>
-                </div>
-                <div className="relative">
-                  <button className="bg-cyan-500 text-white rounded-md px-2 py-1">
-                    Submit
-                  </button>
-                </div>
+              <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7 min-w-[300px]">
+                <form action={formAction}>
+                  <InputFeild label="Name" type="text" name="name" />
+                  <InputFeild label="Phone" type="tel" name="phone" />
+                  <InputFeild label="Email" type="email" name="email" />
+                  <div className="grid grid-cols-2 gap-3 mt-4">
+                    <InputFeild label="Password" type="password" name="password" />
+                    <InputFeild label="Confirm Password" type="password" name="confirmPassword" />
+                  </div>
+
+                  <div className="relative">
+                    <ButtonFilled type="submit" classnames={"w-full"}>
+                      Login
+                    </ButtonFilled>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -58,4 +58,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default signup;
