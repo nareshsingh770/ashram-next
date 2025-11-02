@@ -1,6 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 import { useTranslations } from "next-intl";
-import Home from "@/components/Homepage";
+import Home from "@/components/atoms/Homepage";
 
 export default async function HomePage({
   params,
@@ -14,13 +14,13 @@ export default async function HomePage({
   return <Home />;
 }
 
-function HomePageContent() {
-  const t = useTranslations("home");
+// function HomePageContent() {
+//   const t = useTranslations("home");
 
-  return (
-    <main>
-      <h1>{t("title")}</h1>
-      <p>{t("description")}</p>
-    </main>
-  );
-}
+//   return (
+//     <main>
+//       <h1>{t("title")}</h1>
+//       <p>{t("description")}</p>
+//     </main>
+//   );
+// }
