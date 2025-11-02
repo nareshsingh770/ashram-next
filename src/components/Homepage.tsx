@@ -1,33 +1,7 @@
 "use client";
 import React, { useState } from "react";
-
-/**
- * HomePage.jsx
- * - Tailwind CSS based JSX that mirrors the uploaded landing design (hero, programs, about, events, features, donation, CTA footer).
- * - Replace image src paths ("/images/...") with your actual assets.
- *
- * Usage:
- * - Ensure Tailwind CSS is configured in your project (postcss + tailwind.config.js).
- * - Import this component into your App and place it inside a <main>.
- */
-
-const programs = [
-  {
-    title: "The Happiness Program",
-    desc: "Powerful teaching techniques and practices. A mix of meditation and yoga to improve overall wellbeing.",
-    img: "/images/program1.jpg",
-  },
-  {
-    title: "Sihaj Samadhi Meditation",
-    desc: "Experience deep inner peace with guided sessions that build focus and calm over time.",
-    img: "/images/program2.jpg",
-  },
-  {
-    title: "Advanced Meditation Program",
-    desc: "For those who want a structured path to deepen their meditation practice and insight.",
-    img: "/images/program3.jpg",
-  },
-];
+import Programs from "./modules/Programs";
+import About from "./modules/About";
 
 const events = [
   {
@@ -74,155 +48,17 @@ export default function Home() {
 
   return (
     <div className="font-sans text-gray-800">
-      {/* Header / Nav */}
-      <header className="relative">
-        <div
-          className="absolute inset-0 bg-gradient-to-r from-slate-900/70 via-slate-800/40 to-transparent pointer-events-none"
-          aria-hidden
-        />
-        <nav className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-          <ul className="hidden md:flex gap-8 text-sm text-slate-200">
-            <li className="hover:text-white cursor-pointer">Home</li>
-            <li className="hover:text-white cursor-pointer">Features</li>
-            <li className="hover:text-white cursor-pointer">About</li>
-            <li className="hover:text-white cursor-pointer">Shop</li>
-            <li className="hover:text-white cursor-pointer">Events</li>
-            <li className="hover:text-white cursor-pointer">Donate</li>
-          </ul>
-
-          <div className="text-center">
-            <div className="text-white font-bold text-xl md:text-2xl">
-              VIHARA
-            </div>
-            <div className="text-xs text-slate-300">
-              Meditation & Spirituality
-            </div>
-          </div>
-
-          <div className="hidden md:flex gap-4">
-            <button className="text-sm bg-slate-700/50 text-white px-4 py-2 rounded-full hover:bg-slate-700">
-              Search
-            </button>
-            <button className="text-sm bg-sky-600 text-white px-4 py-2 rounded-full hover:bg-sky-700">
-              Donate
-            </button>
-          </div>
-        </nav>
-
-        {/* Hero */}
-        <section
-          className="relative bg-cover bg-center"
-          style={{
-            backgroundImage: "url('/images/hero-bg.jpg')",
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 to-slate-800/30" />
-          <div className="max-w-7xl mx-auto px-6 py-24 relative z-10 flex flex-col md:flex-row items-center">
-            <div className="md:w-2/3 text-left text-slate-100">
-              <h1 className="text-4xl md:text-5xl font-serif font-semibold leading-tight mb-4">
-                Venerable Shinomori Aoshi
-              </h1>
-              <p className="max-w-xl text-slate-200 mb-6">
-                We welcome everyone who seeks to gain happiness and inner peace,
-                through the study, meditation and practice of Buddhist
-                teachings.
-              </p>
-              <div className="flex gap-4">
-                <button className="bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded-full">
-                  Learn More
-                </button>
-                <button className="bg-transparent border border-slate-300 text-slate-200 px-6 py-3 rounded-full">
-                  Programs
-                </button>
-              </div>
-            </div>
-
-            {/* Floating monk image on the right */}
-            <div className="md:w-1/3 mt-8 md:mt-0 flex justify-end">
-              <img
-                src="/images/monk.png"
-                alt="Teacher"
-                className="w-56 md:w-72 transform translate-y-6"
-              />
-            </div>
-          </div>
-        </section>
-      </header>
-
       {/* Programs */}
-      <section className="bg-slate-50 py-16">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <h3 className="text-sky-400 tracking-widest text-sm mb-2">
-            PROGRAMS
-          </h3>
-          <h2 className="text-3xl md:text-4xl font-serif mb-6">
-            Meditation, Yoga, Retreats, Free Programs & More...
-          </h2>
-
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
-            {programs.map((p) => (
-              <div
-                key={p.title}
-                className="bg-white shadow-sm rounded-lg overflow-hidden"
-              >
-                <img
-                  src={p.img}
-                  alt={p.title}
-                  className="h-40 w-full object-cover"
-                />
-                <div className="p-6">
-                  <h4 className="font-semibold text-slate-800 mb-2">
-                    {p.title}
-                  </h4>
-                  <p className="text-sm text-slate-600 mb-4">{p.desc}</p>
-                  <button className="text-sm bg-slate-700 text-white px-4 py-2 rounded-full">
-                    Know More
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Programs />
 
       {/* About */}
-      <section className="relative bg-gradient-to-b from-slate-800 to-slate-700 text-white py-20">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center gap-8">
-          <div className="md:w-1/3 flex justify-center">
-            <div className="w-56 h-56 rounded-full overflow-hidden ring-8 ring-slate-900/40">
-              <img
-                src="/images/monk-circle.jpg"
-                alt="About"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-          <div className="md:w-2/3">
-            <h3 className="text-xs text-sky-300 mb-2">ABOUT</h3>
-            <h2 className="text-3xl font-serif mb-4">
-              Learn About Venerable Shinomori Aoshi
-            </h2>
-            <p className="text-slate-200 max-w-2xl">
-              Over the years Venerable Shinomori Aoshi has dedicated his life to
-              public teaching, writing and guiding students towards inner peace.
-              His approach connects ancient wisdom with modern practice.
-            </p>
-            <div className="mt-6">
-              <button className="bg-sky-500 hover:bg-sky-600 text-white px-5 py-2 rounded-full">
-                More About
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <About />
 
       {/* Events */}
       <section className="bg-slate-50 py-16">
         <div className="max-w-5xl mx-auto px-6 text-center">
           <h3 className="text-sky-400 tracking-widest text-sm mb-2">EVENTS</h3>
-          <h2 className="text-3xl font-serif mb-8">
-            Upcoming Events And Workshops
-          </h2>
+          <h2 className="text-3xl  mb-8">Upcoming Events And Workshops</h2>
 
           <div className="space-y-4">
             {events.map((e) => (
@@ -331,9 +167,7 @@ export default function Home() {
             <h3 className="text-sky-400 text-sm tracking-widest mb-2">
               DONATION
             </h3>
-            <h2 className="text-2xl md:text-3xl font-serif mb-4">
-              Dakshina: Yoga's Practice of "Giving Back"
-            </h2>
+            <h2 className="text-2xl md:text-3xl  mb-4">qwerty</h2>
             <p className="text-slate-600 mb-6">
               Donations are essential to support the teaching project and help
               sustain community programs, retreats and outreach.
@@ -426,9 +260,7 @@ export default function Home() {
       {/* CTA / Subscribe */}
       <section className="bg-gradient-to-b from-slate-900 to-slate-800 text-white py-14">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-2xl font-serif mb-4">
-            Learn To Be Sustainably Happy!
-          </h2>
+          <h2 className="text-2xl  mb-4">Learn To Be Sustainably Happy!</h2>
           <p className="text-slate-300 mb-6">
             Join our newsletter to receive updates, courses and upcoming events.
           </p>

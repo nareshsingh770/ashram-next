@@ -1,5 +1,5 @@
 "use client";
-import ButtonFilled from "@/components/atoms/ButtonFilled";
+import Button from "@/components/atoms/Button";
 import InputFeild from "@/components/atoms/InputFeild";
 import { userSignup } from "@/server/actions/auth.actions";
 import React, { useActionState, useEffect, useState } from "react";
@@ -11,9 +11,9 @@ const initialState: ActionState = {
   success: false,
 };
 
-const signup = () => {
+const Signup = () => {
   const [state, formAction] = useActionState(userSignup, initialState);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [_errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     if (state?.message && !state.success) {
@@ -39,14 +39,24 @@ const signup = () => {
                   <InputFeild label="Phone" type="tel" name="phone" />
                   <InputFeild label="Email" type="email" name="email" />
                   <div className="grid grid-cols-2 gap-3 mt-4">
-                    <InputFeild label="Password" type="password" name="password" />
-                    <InputFeild label="Confirm Password" type="password" name="confirmPassword" />
+                    <InputFeild
+                      label="Password"
+                      type="password"
+                      name="password"
+                    />
+                    <InputFeild
+                      label="Confirm Password"
+                      type="password"
+                      name="confirmPassword"
+                    />
                   </div>
 
                   <div className="relative">
-                    <ButtonFilled type="submit" classnames={"w-full"}>
-                      Login
-                    </ButtonFilled>
+                    <Button
+                      type="submit"
+                      classnames={"w-full"}
+                      text={"Sign Up"}
+                    />
                   </div>
                 </form>
               </div>
@@ -58,4 +68,4 @@ const signup = () => {
   );
 };
 
-export default signup;
+export default Signup;

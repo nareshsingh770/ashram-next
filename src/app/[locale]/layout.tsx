@@ -5,6 +5,13 @@ import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import StoreProvider from "@/store/StoreProvider";
 import "@/app/globals.css";
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-poppins",
+});
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -23,7 +30,7 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={poppins.variable}>
       <body>
         <StoreProvider>
           <NextIntlClientProvider>

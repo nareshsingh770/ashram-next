@@ -1,4 +1,4 @@
-import ButtonFilled from "@/components/atoms/ButtonFilled";
+import Button from "@/components/atoms/Button";
 import InputFeild from "@/components/atoms/InputFeild";
 import React from "react";
 
@@ -19,7 +19,7 @@ const login = () => {
                 {/* <InputFeild label="Password" type="password" /> */}
 
                 <div className="relative">
-                  <ButtonFilled classnames={"w-full"}>Login</ButtonFilled>
+                  <Button type="submit" classnames={"w-full"} text={"Login"} />
                 </div>
               </div>
             </div>

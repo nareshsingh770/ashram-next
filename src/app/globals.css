@@ -41,6 +41,10 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  
+  /* Custom theme colors */
+  --color-brand-primary: #007bff;
+  --color-brand-secondary: #D91656;
 }
 
 :root {
@@ -119,4 +123,14 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.btn-brand-primary {
+  @apply bg-brand-primary border border-slate-300 text-white px-6 py-3 rounded-full cursor-pointer hover:bg-brand-primary/75;
+}
+.btn-brand-secondary {
+  @apply bg-brand-secondary border border-slate-300 text-white px-6 py-3 rounded-full cursor-pointer hover:bg-brand-secondary/75;
+}
+.layout-spacing {
+  @apply max-w-7xl mx-auto px-6;
 }
