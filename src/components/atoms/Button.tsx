@@ -7,12 +7,14 @@ const Button = ({
   isPrimary,
   type = "button",
   href,
+  disabled = false,
 }: {
   text: string;
   classnames?: string;
   isPrimary?: boolean;
   type?: "button" | "submit";
   href?: string;
+  disabled?: boolean;
 }) => {
   const baseClassName = `${
     isPrimary ? "btn-brand-primary" : "btn-brand-secondary"
@@ -27,7 +29,7 @@ const Button = ({
   }
 
   return (
-    <button className={baseClassName} type={type}>
+    <button className={baseClassName} type={type} disabled={disabled}>
       {text}
     </button>
   );
