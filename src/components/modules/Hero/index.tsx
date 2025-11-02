@@ -1,7 +1,7 @@
 import Button from "@/components/atoms/Button";
 import React from "react";
 
-const index = () => {
+const Index = () => {
   return (
     <section
       className="relative bg-cover bg-center"
@@ -37,4 +37,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const index = () => {
+const Index = () => {
   const [donation, setDonation] = useState(0);
   const goal = 15000;
 
@@ -106,4 +106,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

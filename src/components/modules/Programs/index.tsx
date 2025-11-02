@@ -2,7 +2,7 @@ import Button from "@/components/atoms/Button";
 import Heading from "@/components/atoms/Heading";
 import React from "react";
 
-const index = () => {
+const Index = () => {
   const programs = [
     {
       title: "The Happiness Program",
@@ -52,4 +52,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

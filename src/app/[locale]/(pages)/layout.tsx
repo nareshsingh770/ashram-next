@@ -1,6 +1,9 @@
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
+import Header from "@/components/common/Header";
+import Footer from "@/components/common/Footer";
+import StoreProvider from "@/store/StoreProvider";
 import "@/app/globals.css";
 import { Poppins } from "next/font/google";
 
@@ -27,8 +30,12 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang={locale} className={poppins.variable}>
-      <body>{children}</body>
-    </html>
+    <StoreProvider>
+      <NextIntlClientProvider>
+        <Header />
+        {children}
+        <Footer />
+      </NextIntlClientProvider>
+    </StoreProvider>
   );
 }

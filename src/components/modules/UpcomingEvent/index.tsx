@@ -37,7 +37,7 @@ const events = [
   },
 ];
 
-const index = () => {
+const Index = () => {
   return (
     <section className="bg-slate-50 py-16">
       <div className="max-w-5xl mx-auto px-6 text-center">
@@ -86,4 +86,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

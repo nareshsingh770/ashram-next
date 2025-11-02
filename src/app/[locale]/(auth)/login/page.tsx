@@ -12,17 +12,23 @@ const login = () => {
             <div>
               <h1 className="text-2xl font-semibold">Login</h1>
             </div>
-            <div className="divide-y divide-gray-200">
-              <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7 min-w-[300px]">
-                <InputFeild label="Phone" type="tel" />
-                <InputFeild label="Phone" type="tel" />
-                {/* <InputFeild label="Password" type="password" /> */}
+            <form action={""}>
+              <div className="divide-y divide-gray-200">
+                <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7 min-w-[300px]">
+                  <InputFeild label="Phone" type="tel" />
+                  <InputFeild label="Phone" type="tel" />
+                  {/* <InputFeild label="Password" type="password" /> */}
 
-                <div className="relative">
-                  <Button type="submit" classnames={"w-full"} text={"Login"} />
+                  <div className="relative">
+                    <Button
+                      type="submit"
+                      classnames={"w-full"}
+                      text={"Login"}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>

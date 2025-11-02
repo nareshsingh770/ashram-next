@@ -4,7 +4,7 @@ import Image from "next/image";
 import React from "react";
 import Button from "@/components/atoms/Button";
 
-const index = () => {
+const Index = () => {
   return (
     <section className="relative bg-linear-to-b from-slate-800 to-slate-700 text-white py-20">
       <div className="layout-spacing">
@@ -40,4 +40,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

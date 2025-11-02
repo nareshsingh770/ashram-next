@@ -1,7 +1,7 @@
 import Button from "@/components/atoms/Button";
 import React from "react";
 
-const index = () => {
+const Index = () => {
   return (
     <section className="py-16">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -31,4 +31,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;
