@@ -9,7 +9,7 @@ const Header = () => {
       {/* <LocaleSwitcher /> */}
       <header className="relative">
         <div
-          className="absolute inset-0 bg-gradient-to-r from-slate-900/70 via-slate-800/40 to-transparent pointer-events-none bg-cover bg-center"
+          className="absolute inset-0 bg-linear-to-r from-slate-900/70 via-slate-800/40 to-transparent pointer-events-none bg-cover bg-center"
           style={{ backgroundImage: "url('/images/header-bg.png')" }}
           aria-hidden
         />

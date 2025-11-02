@@ -110,7 +110,7 @@ export default function Home() {
               alt="feature"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent flex items-end p-6">
+            <div className="absolute inset-0 bg-linear-to-t from-slate-900/70 via-transparent flex items-end p-6">
               <div>
                 <h4 className="text-white font-semibold text-lg">
                   Know the Basic Tenets With Traditional Definitions.
@@ -128,7 +128,7 @@ export default function Home() {
               alt="feature"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent flex items-end p-6">
+            <div className="absolute inset-0 bg-linear-to-t from-slate-900/70 via-transparent flex items-end p-6">
               <div>
                 <h4 className="text-white font-semibold text-lg">
                   Learn and Practice Hindu Tradition and Culture.
@@ -146,7 +146,7 @@ export default function Home() {
               alt="feature"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent flex items-end p-6">
+            <div className="absolute inset-0 bg-linear-to-t from-slate-900/70 via-transparent flex items-end p-6">
               <div>
                 <h4 className="text-white font-semibold text-lg">
                   Understand the Concepts With Orthodox Interpretation.
@@ -258,7 +258,7 @@ export default function Home() {
       </section>
 
       {/* CTA / Subscribe */}
-      <section className="bg-gradient-to-b from-slate-900 to-slate-800 text-white py-14">
+      <section className="bg-linear-to-t from-slate-900 to-slate-800 text-white py-14">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-2xl  mb-4">Learn To Be Sustainably Happy!</h2>
           <p className="text-slate-300 mb-6">
