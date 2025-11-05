@@ -1,5 +1,9 @@
 import "@/app/globals.css";
 import { Poppins } from "next/font/google";
+import StoreProvider from "@/store/StoreProvider";
+import AuthProvider from "@/components/AuthProvider";
+import Header from "@/components/common/Header";
+import Footer from "@/components/common/Footer";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -14,7 +18,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={poppins.variable}>
-      <body>{children}</body>
+      <body>
+        <StoreProvider>
+          <AuthProvider>
+            <Header />
+            {children}
+            <Footer />
+          </AuthProvider>
+        </StoreProvider>
+      </body>
     </html>
   );
 }

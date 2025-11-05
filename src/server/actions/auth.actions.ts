@@ -1,3 +1,4 @@
+'use server";';
 import {
   loginUserService,
   registerUserService,
@@ -43,7 +44,7 @@ export async function userSignup(
       success: false,
     };
   }
-
+  console.log(response, "response from service");
   if (response.error) {
     return {
       apiErrors: response.error,
@@ -77,7 +78,6 @@ export async function userLogin(
 ): Promise<ActionResult> {
   try {
     // Validate fields
-    console.log("formData", formData);
     const validatedFields = loginSchema.safeParse({
       identifier: formData.get("email"),
       password: formData.get("password"),
@@ -96,6 +96,7 @@ export async function userLogin(
       email: identifier,
       password,
     });
+    console.log(response, "response from service");
     if (!response) {
       return {
         apiErrors: null,
@@ -104,9 +105,8 @@ export async function userLogin(
         success: false,
       };
     }
-
     if (response.error) {
-      const errorMessage = response.error[0]?.message || "Invalid credentials";
+      const errorMessage = response.error || "Invalid credentials";
       return {
         apiErrors: response.error,
         zodErrors: null,
@@ -116,12 +116,12 @@ export async function userLogin(
     }
 
     // set jwt cookie
-    if (response && response.message && response.token) {
+    if (response && response.message && response.userDetails) {
       return {
         zodErrors: null,
         apiErrors: null,
         message: response.message,
-        token: response.token,
+        userDetails: response.userDetails,
         success: true,
       };
     }

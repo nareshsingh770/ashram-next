@@ -1,9 +1,14 @@
+"use client";
 import React from "react";
 import LocaleSwitcher from "./LocaleSwitcher";
 import { NAV_BAR_ITEMS } from "@/constant/appConstant";
 import Button from "../atoms/Button";
+import { useAuth } from "@/hooks/useAuth";
+import Link from "next/link";
 
 const Header = () => {
+  const { isAuthenticated, userDetails, logout } = useAuth();
+  console.log(userDetails, "userDetails in header");
   return (
     <div className="mb-20">
       {/* <LocaleSwitcher /> */}
@@ -30,13 +35,42 @@ const Header = () => {
             </div>
           </div>
 
-          <div className="hidden md:flex gap-4">
+          <div className="hidden md:flex gap-4 items-center">
             <button className="text-sm bg-slate-700/50 text-white px-4 py-2 rounded-full hover:bg-slate-700">
               Search
             </button>
             <button className="text-sm bg-sky-600 text-white px-4 py-2 rounded-full hover:bg-sky-700">
               Donate
             </button>
+
+            {isAuthenticated && userDetails ? (
+              <div className="flex items-center gap-3">
+                <span className="text-white text-sm">
+                  Welcome, {userDetails.name}
+                </span>
+                <button
+                  onClick={logout}
+                  className="text-sm bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <div className="flex gap-2">
+                <Link
+                  href="/login"
+                  className="text-sm bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/signup"
+                  className="text-sm bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700"
+                >
+                  Sign Up
+                </Link>
+              </div>
+            )}
           </div>
         </nav>
       </header>

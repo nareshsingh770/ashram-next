@@ -1,30 +1,13 @@
-interface userRegisterProps {
-  name: string;
-  username: string;
-  email: string;
-  phone: string;
-  password: string;
-}
+import apiClient from "@/lib/apiClient";
+import { authAPI } from "@/services/api";
+
 export async function registerUserService(userData: userRegisterProps) {
   try {
-    const result = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/signup`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include", // Allow cookies to be sent and received
-        body: JSON.stringify({
-          ...userData,
-        }),
-      }
-    );
-
-    return result.json();
+    const response = await authAPI.register(userData);
+    return response;
   } catch (error: any) {
     console.error("Error registering user:", error.message);
-    return null;
+    return error.response.data;
   }
 }
 
@@ -33,21 +16,10 @@ export async function loginUserService(credentials: {
   password: string;
 }) {
   try {
-    const result = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include", // Allow cookies to be sent and received
-        body: JSON.stringify(credentials),
-      }
-    );
-
-    return result.json();
+    const response = await authAPI.login(credentials);
+    return response.data;
   } catch (error: any) {
     console.error("Error logging in user:", error.message);
-    return null;
+    return error.response.data;
   }
 }

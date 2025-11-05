@@ -4,12 +4,6 @@ import { notFound } from "next/navigation";
 import "@/app/globals.css";
 import { Poppins } from "next/font/google";
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-poppins",
-});
-
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
@@ -26,9 +20,5 @@ export default async function RootLayout({
     notFound();
   }
 
-  return (
-    <html lang={locale} className={poppins.variable}>
-      <body>{children}</body>
-    </html>
-  );
+  return <>{children}</>;
 }
