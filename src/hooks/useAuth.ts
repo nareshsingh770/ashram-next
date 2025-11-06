@@ -21,13 +21,6 @@ export const useAuth = () => {
     dispatch(checkAuthStatus());
   };
 
-  // Function to login user
-  const login = async (credentials: { email: string; password: string }) => {
-    debugger;
-    const result = await dispatch(loginUserAsync(credentials));
-    return result;
-  };
-
   // Function to logout user
   const logout = () => {
     dispatch(logoutUserAsync());
@@ -54,7 +47,6 @@ export const useAuth = () => {
     userDetails,
     isLoading,
     error,
-    login,
     logout,
     register,
     checkAuth,

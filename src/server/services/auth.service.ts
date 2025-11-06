@@ -4,7 +4,7 @@ import { authAPI } from "@/services/api";
 export async function registerUserService(userData: userRegisterProps) {
   try {
     const response = await authAPI.register(userData);
-    return response;
+    return response.data;
   } catch (error: any) {
     console.error("Error registering user:", error.message);
     return error.response.data;

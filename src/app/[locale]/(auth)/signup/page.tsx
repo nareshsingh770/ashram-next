@@ -2,6 +2,7 @@
 import Button from "@/components/atoms/Button";
 import InputFeild from "@/components/atoms/InputFeild";
 import { userSignup } from "@/server/actions/auth.actions";
+import { useRouter } from "next/navigation";
 import React, { useActionState, useEffect, useState } from "react";
 
 const initialState: ActionState = {
@@ -13,6 +14,7 @@ const initialState: ActionState = {
 
 const Signup = () => {
   const [state, formAction] = useActionState(userSignup, initialState);
+  const router = useRouter();
   const [errorMessage, setErrorMessage] = useState<Record<
     string,
     string[]
@@ -20,10 +22,12 @@ const Signup = () => {
 
   useEffect(() => {
     console.log(state, "state");
-    if (state?.message && !state.success && state?.zodErrors) {
+    if (state?.zodErrors) {
       setErrorMessage(state.zodErrors);
-    } else if (state?.success) {
-      window.location.href = "/";
+    } else if (state?.apiErrors) {
+      alert(state.apiErrors);
+    } else if (state?.message) {
+      router.push("/login");
     }
   }, [state]);
 

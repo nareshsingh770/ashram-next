@@ -29,7 +29,7 @@ const Login = () => {
     string,
     string[]
   > | null>(null);
-  const { login, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const Login = () => {
       dispatch(loginUser(state.userDetails));
       router.push("/"); // Redirect to home page
     }
-  }, [state, login, router]);
+  }, [state, router]);
 
   // Redirect if already authenticated
   useEffect(() => {
