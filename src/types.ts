@@ -13,6 +13,7 @@ interface ActionResult {
     id: string;
     email: string;
     name: string;
+    role: "user" | "admin";
     username: string;
   };
   success?: boolean;

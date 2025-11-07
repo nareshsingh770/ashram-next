@@ -4,6 +4,7 @@ import InputFeild from "@/components/atoms/InputFeild";
 import { userSignup } from "@/server/actions/auth.actions";
 import { useRouter } from "next/navigation";
 import React, { useActionState, useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 const initialState: ActionState = {
   zodErrors: {},
@@ -19,6 +20,7 @@ const Signup = () => {
     string,
     string[]
   > | null>(null);
+  const t = useTranslations("signup");
 
   useEffect(() => {
     console.log(state, "state");
@@ -38,37 +40,37 @@ const Signup = () => {
         <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
           <div className="max-w-md mx-auto">
             <div>
-              <h1 className="text-2xl font-semibold">Login</h1>
+              <h1 className="text-2xl font-semibold">{t("signup")}</h1>
             </div>
             <div className="divide-y divide-gray-200">
               <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7 min-w-[300px]">
                 <form action={formAction}>
                   <InputFeild
-                    label="Name"
+                    label={t("name")}
                     type="text"
                     name="name"
                     zodErrors={errorMessage?.name}
                   />
                   <InputFeild
-                    label="Phone"
+                    label={t("phone")}
                     type="tel"
                     name="phone"
                     zodErrors={errorMessage?.phone}
                   />
                   <InputFeild
-                    label="Email"
+                    label={t("email")}
                     type="email"
                     name="email"
                     zodErrors={errorMessage?.email}
                   />
                   <InputFeild
-                    label="Password"
+                    label={t("password")}
                     type="password"
                     name="password"
                     zodErrors={errorMessage?.password}
                   />
                   <InputFeild
-                    label="Confirm Password"
+                    label={t("confirmPassword")}
                     type="password"
                     name="confirmPassword"
                     zodErrors={errorMessage?.confirmPassword}
@@ -78,7 +80,7 @@ const Signup = () => {
                     <Button
                       type="submit"
                       classnames={"w-full"}
-                      text={"Sign Up"}
+                      text={t("signup")}
                     />
                   </div>
                 </form>

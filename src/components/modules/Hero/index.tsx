@@ -1,7 +1,9 @@
 import Button from "@/components/atoms/Button";
+import { useTranslations } from "next-intl";
 import React from "react";
 
 const Index = () => {
+  const t = useTranslations("home");
   return (
     <section
       className="relative bg-cover bg-center"
@@ -12,12 +14,9 @@ const Index = () => {
       <div className="layout-spacing py-24 relative z-10 flex flex-col md:flex-row items-center">
         <div className="md:w-2/3 text-left text-slate-100">
           <h1 className="text-4xl md:text-5xl  font-semibold leading-tight mb-4">
-            Venerable Shinomori Aoshi
+            {t("welcome")}
           </h1>
-          <p className="max-w-xl text-slate-200 mb-6">
-            We welcome everyone who seeks to gain happiness and inner peace,
-            through the study, meditation and practice of Buddhist teachings.
-          </p>
+          <p className="max-w-xl text-slate-200 mb-6">{t("description")}</p>
           <div className="flex gap-4">
             <Button text="Learn More" isPrimary />
             <Button classnames="btn-brand-secondary" text="Programs" />

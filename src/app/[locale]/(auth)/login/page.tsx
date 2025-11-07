@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { loginUser } from "@/store/userSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store";
+import { useTranslations } from "next-intl";
 
 const initialState: ActionResult = {
   zodErrors: {},
@@ -17,6 +18,7 @@ const initialState: ActionResult = {
     id: "",
     email: "",
     name: "",
+    role: "user",
     username: "",
   },
   success: false,
@@ -31,6 +33,7 @@ const Login = () => {
   > | null>(null);
   const { isAuthenticated } = useAuth();
   const router = useRouter();
+  const t = useTranslations("login");
 
   useEffect(() => {
     if (state?.zodErrors) {
@@ -57,7 +60,7 @@ const Login = () => {
         <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
           <div className="max-w-md mx-auto">
             <div>
-              <h1 className="text-2xl font-semibold">Login</h1>
+              <h1 className="text-2xl font-semibold">{t("login")}</h1>
             </div>
             <div className="divide-y divide-gray-200">
               <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7 min-w-[300px]">
@@ -75,13 +78,13 @@ const Login = () => {
 
                 <form action={formAction}>
                   <InputFeild
-                    label="Email"
+                    label={t("email")}
                     type="email"
                     name="email"
                     zodErrors={errorMessage?.email}
                   />
                   <InputFeild
-                    label="Password"
+                    label={t("password")}
                     type="password"
                     name="password"
                     zodErrors={errorMessage?.password}
@@ -91,7 +94,7 @@ const Login = () => {
                     <Button
                       type="submit"
                       classnames={"w-full"}
-                      text={"Login"}
+                      text={t("login")}
                     />
                   </div>
                 </form>

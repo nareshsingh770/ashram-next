@@ -1,13 +1,17 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Programs from "../modules/Programs";
 import About from "@/components/modules/About";
 import UpcomingEvent from "@/components/modules/UpcomingEvent";
 import Features from "../modules/Features";
 import Donation from "../modules/Donation";
 import Hero from "../modules/Hero";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
 export default function Home() {
+  const { userDetails } = useSelector((state: RootState) => state.user);
+  console.log(userDetails?.role, "userDetails in homepage");
   return (
     <div className="font-sans text-gray-800">
       {/* Hero Section */}

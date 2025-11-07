@@ -1,6 +1,24 @@
 {
   "home": {
-    "title": "Welcome",
+    "welcome": "Welcome",
     "description": "This is the English version."
+  },
+  "login": {
+    "login": "Login",
+    "email": "Email Address",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign Up"
+  },
+  "signup": {
+    "signup": "Sign Up",
+    "name": "Name",
+    "phone": "Phone Number",
+    "email": "Email Address",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "haveAccount": "Already have an account?",
+    "login": "Login"
   }
 }

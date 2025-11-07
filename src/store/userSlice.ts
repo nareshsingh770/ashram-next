@@ -6,6 +6,7 @@ interface UserDetails {
   id?: string;
   name: string;
   email?: string;
+  role: "user" | "admin";
   phone?: string;
   username?: string;
   [key: string]: any; // For any additional fields from backend
