@@ -26,3 +26,9 @@ interface userRegisterProps {
   phone: string;
   password: string;
 }
+
+interface EventState {
+  eventList: any[] | null;
+  isLoading: boolean;
+  error: string | null;
+}

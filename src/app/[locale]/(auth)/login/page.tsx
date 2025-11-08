@@ -5,7 +5,7 @@ import { userLogin } from "@/server/actions/auth.actions";
 import { useAuth } from "@/hooks/useAuth";
 import React, { useActionState, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { loginUser } from "@/store/userSlice";
+import { loginUser } from "@/store/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store";
 import { useTranslations } from "next-intl";

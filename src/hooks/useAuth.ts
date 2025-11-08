@@ -8,7 +8,7 @@ import {
   loginUserAsync,
   logoutUserAsync,
   registerUserAsync,
-} from "@/store/userSlice";
+} from "@/store/slices/userSlice";
 
 export const useAuth = () => {
   const dispatch = useDispatch<AppDispatch>();

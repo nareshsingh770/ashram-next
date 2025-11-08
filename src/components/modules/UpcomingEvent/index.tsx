@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Heading from "@/components/atoms/Heading";
 import Button from "@/components/atoms/Button";
+import { AppDispatch, RootState } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
+import { getEventList } from "@/store/slices/eventSlice";
 
 const events = [
   {
@@ -38,32 +41,44 @@ const events = [
 ];
 
 const Index = () => {
+  const { eventList, isLoading, error } = useSelector(
+    (state: RootState) => state.events
+  );
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    dispatch(getEventList());
+  }, []);
   return (
     <section className="bg-slate-50 py-16">
       <div className="max-w-5xl mx-auto px-6 text-center">
         <Heading title="EVENTS" subtitle="Upcoming Events And Workshops" />
 
         <div className="space-y-4">
-          {events.map((e) => (
+          {eventList.map((e) => (
             <div
               key={e.id}
               className="flex items-center bg-white rounded shadow-sm overflow-hidden"
             >
-              <img
-                src={e.img}
-                alt={e.title}
-                className="w-28 h-20 object-cover"
-              />
+              {e?.image ? (
+                <img
+                  src={`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}${e.image}`}
+                  alt={e.title}
+                  className="w-28 h-20 object-cover"
+                />
+              ) : (
+                <div className="w-28 h-20 bg-gray-200 animate-pulse" />
+              )}
               <div className="px-4 py-3 flex-1">
                 <div className="flex items-baseline gap-4 justify-center">
                   <div className="text-sm text-sky-500 font-semibold">
                     <div className="text-xl font-bold">{e.date}</div>
-                    <div className="text-xs uppercase">{e.month}</div>
+                    {/* <div className="text-xs uppercase">{e.month}</div> */}
                   </div>
                   <div>
                     <h4 className="font-semibold text-slate-800 text-2xl">
                       {e.title}
                     </h4>
+                    <p className="text-slate-500">{e.description}</p>
                     <p className="text-xs text-slate-500">{e.time}</p>
                   </div>
                 </div>
@@ -77,9 +92,6 @@ const Index = () => {
               </div>
             </div>
           ))}
-          <div className="text-center mt-6">
-            <Button text="More Events" />
-          </div>
         </div>
       </div>
     </section>

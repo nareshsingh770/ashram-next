@@ -53,6 +53,46 @@ export const postsAPI = {
   deletePost: (postId: string) => apiHelpers.delete(`/posts/${postId}`),
 };
 
+// Event API endpoints
+export const eventsAPI = {
+  // Get all events
+  getEvents: () => apiHelpers.get("/events"),
+
+  // Get single event
+  getEvent: (eventId: string) => apiHelpers.get(`/events/${eventId}`),
+
+  // Create new event
+  createEvent: (data: any) => {
+    // Check if data is FormData (has image)
+    if (data instanceof FormData) {
+      return apiClient.post("/events", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    }
+    // Otherwise send as JSON
+    return apiHelpers.post("/events", data);
+  },
+
+  // Update event
+  updateEvent: (eventId: string, data: any) => {
+    // Check if data is FormData (has image)
+    if (data instanceof FormData) {
+      return apiClient.patch(`/events/${eventId}`, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    }
+    // Otherwise send as JSON
+    return apiHelpers.patch(`/events/${eventId}`, data);
+  },
+
+  // Delete event
+  deleteEvent: (eventId: string) => apiHelpers.delete(`/events/${eventId}`),
+};
+
 // Example: File upload API
 export const uploadAPI = {
   // Upload single file

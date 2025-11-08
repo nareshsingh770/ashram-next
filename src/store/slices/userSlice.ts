@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import apiClient, { apiHelpers } from "@/lib/apiClient";
 import { authAPI } from "@/services/api";
 
 interface UserDetails {

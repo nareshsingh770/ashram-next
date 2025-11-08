@@ -13,11 +13,6 @@ const NotFound = () => {
           Page Not Found
         </h2>
 
-        <p className="text-lg text-gray-600 mb-8 max-w-md">
-          Sorry, we couldn't find the page you're looking for. It might have
-          been moved, deleted, or you don't have permission to access it.
-        </p>
-
         {/* Action Buttons */}
         <div className="space-x-4">
           <Link
@@ -27,10 +22,7 @@ const NotFound = () => {
             Go to Homepage
           </Link>
 
-          <button
-            onClick={() => window.history.back()}
-            className="inline-block bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors"
-          >
+          <button className="inline-block bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors">
             Go Back
           </button>
         </div>

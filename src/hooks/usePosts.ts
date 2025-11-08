@@ -9,7 +9,7 @@ import {
   clearError,
   clearCurrentPost,
   setPagination,
-} from "@/store/postsSlice";
+} from "@/store/slices/postsSlice";
 
 export const usePosts = () => {
   const dispatch = useDispatch<AppDispatch>();

@@ -1,100 +1,162 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-
-interface Event {
-  id: string;
-  image?: string;
-  title: string;
-  description: string;
-  date: string;
-  location?: string;
-  time?: string;
-  createdAt: string;
-}
+import { eventsAPI } from "@/services/api";
+import { useDispatch, useSelector } from "react-redux";
+import { getEventList } from "@/store/slices/eventSlice";
+import { Event, EventFormData } from "@/types/event";
+import { RootState, AppDispatch } from "@/store";
 
 const AdminEventsPage = () => {
   const router = useRouter();
   const [showCreateForm, setShowCreateForm] = useState(false);
-  const [events, setEvents] = useState<Event[]>([
-    {
-      id: "1",
-      title: "Morning Meditation Session",
-      description:
-        "Join us for a peaceful morning meditation to start your day with mindfulness and tranquility.",
-      date: "2025-11-15",
-      time: "06:00 AM",
-      location: "Main Hall",
-      image: "/images/meditation.jpg",
-      createdAt: "2025-11-01",
-    },
-    {
-      id: "2",
-      title: "Spiritual Discourse",
-      description:
-        "Weekly spiritual discourse on ancient wisdom and modern living.",
-      date: "2025-11-20",
-      time: "07:00 PM",
-      location: "Satsang Hall",
-      createdAt: "2025-11-02",
-    },
-    {
-      id: "3",
-      title: "Community Service Day",
-      description:
-        "Join hands with the community to serve meals and spread love.",
-      date: "2025-11-25",
-      time: "10:00 AM",
-      location: "Community Kitchen",
-      createdAt: "2025-11-03",
-    },
-  ]);
+  const dispatch = useDispatch<AppDispatch>();
 
-  const [formData, setFormData] = useState({
+  const { eventList, isLoading, error } = useSelector(
+    (state: RootState) => state.events
+  );
+  console.log(eventList, "eventList_eventList");
+  const [formData, setFormData] = useState<EventFormData>({
     title: "",
     description: "",
     date: "",
     time: "",
     location: "",
-    image: "",
+    image: null,
   });
-
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
+    console.log(formData, "FORM data");
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+
+    if (file) {
+      // Validate file size (10MB limit)
+      const maxSize = 10 * 1024 * 1024; // 10MB in bytes
+      if (file.size > maxSize) {
+        alert("File size must be less than 10MB");
+        e.target.value = ""; // Clear the input
+        return;
+      }
+
+      // Validate file type
+      const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "image/gif",
+      ];
+      if (!allowedTypes.includes(file.type)) {
+        alert("Please select a valid image file (JPEG, PNG, WebP, or GIF)");
+        e.target.value = ""; // Clear the input
+        return;
+      }
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      image: file,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const newEvent: Event = {
-      id: Date.now().toString(),
-      ...formData,
-      createdAt: new Date().toISOString(),
-    };
+    try {
+      let eventData;
 
-    setEvents((prev) => [newEvent, ...prev]);
-    setFormData({
-      title: "",
-      description: "",
-      date: "",
-      time: "",
-      location: "",
-      image: "",
-    });
-    setShowCreateForm(false);
+      if (formData.image) {
+        // Create FormData for multipart/form-data when image is present
+        const formDataToSend = new FormData();
+        formDataToSend.append("title", formData.title);
+        formDataToSend.append("description", formData.description);
+        formDataToSend.append("date", formData.date);
+        formDataToSend.append("time", formData.time);
+        formDataToSend.append("location", formData.location);
+        formDataToSend.append("image", formData.image);
+
+        console.log("Sending FormData with image:", {
+          title: formData.title,
+          description: formData.description,
+          date: formData.date,
+          time: formData.time,
+          location: formData.location,
+          imageFile: formData.image.name,
+          imageSize: formData.image.size,
+          imageType: formData.image.type,
+        });
+
+        eventData = formDataToSend;
+      } else {
+        // Send as JSON when no image
+        eventData = {
+          title: formData.title,
+          description: formData.description,
+          date: formData.date,
+          time: formData.time,
+          location: formData.location,
+        };
+
+        console.log("Sending JSON data without image:", eventData);
+      }
+
+      const res = await eventsAPI.createEvent(eventData);
+      console.log(res, "created event response");
+
+      // Refresh the event list from the server
+      dispatch(getEventList());
+
+      // Reset form
+      setFormData({
+        title: "",
+        description: "",
+        date: "",
+        time: "",
+        location: "",
+        image: null,
+      });
+
+      // Reset file input
+      const fileInput = document.getElementById("image") as HTMLInputElement;
+      if (fileInput) {
+        fileInput.value = "";
+      }
+
+      setShowCreateForm(false);
+    } catch (error) {
+      console.error("Error creating event:", error);
+      alert("Failed to create event. Please try again.");
+    }
   };
 
   const handleDelete = (id: string) => {
     if (confirm("Are you sure you want to delete this event?")) {
-      setEvents((prev) => prev.filter((event) => event.id !== id));
+      //setEvents((prev) => prev.filter((event) => event.id !== id));
     }
   };
+
+  // Cleanup object URLs to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      eventList.forEach((event: Event) => {
+        if (event.image instanceof File) {
+          URL.revokeObjectURL(URL.createObjectURL(event.image));
+        }
+      });
+    };
+  }, [eventList]);
+
+  useEffect(() => {
+    dispatch(getEventList());
+  }, [dispatch]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -174,7 +236,7 @@ const AdminEventsPage = () => {
                   Total Events
                 </p>
                 <p className="text-2xl font-semibold text-gray-900">
-                  {events.length}
+                  {eventList.length}
                 </p>
               </div>
             </div>
@@ -203,8 +265,9 @@ const AdminEventsPage = () => {
                 </p>
                 <p className="text-2xl font-semibold text-gray-900">
                   {
-                    events.filter((event) => new Date(event.date) >= new Date())
-                      .length
+                    eventList.filter(
+                      (event: Event) => new Date(event.date) >= new Date()
+                    ).length
                   }
                 </p>
               </div>
@@ -232,7 +295,7 @@ const AdminEventsPage = () => {
                 <p className="text-sm font-medium text-gray-600">This Month</p>
                 <p className="text-2xl font-semibold text-gray-900">
                   {
-                    events.filter((event) => {
+                    eventList.filter((event: Event) => {
                       const eventDate = new Date(event.date);
                       const now = new Date();
                       return (
@@ -253,7 +316,7 @@ const AdminEventsPage = () => {
             <h2 className="text-lg font-medium text-gray-900">All Events</h2>
           </div>
           <div className="divide-y divide-gray-200">
-            {events.length === 0 ? (
+            {eventList.length === 0 ? (
               <div className="p-8 text-center">
                 <svg
                   className="mx-auto h-12 w-12 text-gray-400"
@@ -276,22 +339,42 @@ const AdminEventsPage = () => {
                 </p>
               </div>
             ) : (
-              events.map((event) => (
+              eventList.map((event: Event, ind: number) => (
                 <div
-                  key={event.id}
+                  key={ind}
                   className="p-6 hover:bg-gray-50 transition-colors"
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex space-x-4">
-                      {event.image && (
-                        <div className="shrink-0">
+                      <div className="shrink-0">
+                        {event.image ? (
                           <img
-                            className="h-20 w-20 rounded-lg object-cover"
-                            src={event.image}
+                            className="h-20 w-20 rounded-lg object-cover border-2 border-gray-200"
+                            src={`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}${
+                              event.image instanceof File
+                                ? URL.createObjectURL(event.image)
+                                : event.image
+                            }`}
                             alt={event.title}
                           />
-                        </div>
-                      )}
+                        ) : (
+                          <div className="h-20 w-20 rounded-lg bg-gray-100 border-2 border-gray-200 flex items-center justify-center">
+                            <svg
+                              className="h-8 w-8 text-gray-400"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                              />
+                            </svg>
+                          </div>
+                        )}
+                      </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="text-lg font-medium text-gray-900 mb-1">
                           {event.title}
@@ -378,7 +461,7 @@ const AdminEventsPage = () => {
                         </svg>
                       </button>
                       <button
-                        onClick={() => handleDelete(event.id)}
+                        //onClick={() => handleDelete(event.id)}
                         className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                       >
                         <svg
@@ -532,23 +615,70 @@ const AdminEventsPage = () => {
                   htmlFor="image"
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
-                  Image URL
+                  Event Image
                 </label>
-                <input
-                  type="url"
-                  id="image"
-                  name="image"
-                  value={formData.image}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                  placeholder="Enter image URL"
-                />
+                <div className="relative">
+                  <input
+                    type="file"
+                    id="image"
+                    name="image"
+                    accept="image/jpeg,image/png,image/webp,image/gif"
+                    onChange={handleFileChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">
+                    Supported formats: JPEG, PNG, WebP, GIF (Max 10MB)
+                  </p>
+                </div>
+                {formData.image && (
+                  <div className="mt-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-sm text-gray-600">
+                        Selected file: {formData.image.name}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFormData((prev) => ({ ...prev, image: null }));
+                          const fileInput = document.getElementById(
+                            "image"
+                          ) as HTMLInputElement;
+                          if (fileInput) fileInput.value = "";
+                        }}
+                        className="text-red-600 hover:text-red-800 text-sm"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                    <div className="relative w-32 h-32 border-2 border-gray-200 rounded-lg overflow-hidden">
+                      <img
+                        src={URL.createObjectURL(formData.image)}
+                        alt="Preview"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="flex justify-end space-x-3 pt-4">
                 <button
                   type="button"
-                  onClick={() => setShowCreateForm(false)}
+                  onClick={() => {
+                    setFormData({
+                      title: "",
+                      description: "",
+                      date: "",
+                      time: "",
+                      location: "",
+                      image: null,
+                    });
+                    const fileInput = document.getElementById(
+                      "image"
+                    ) as HTMLInputElement;
+                    if (fileInput) fileInput.value = "";
+                    setShowCreateForm(false);
+                  }}
                   className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
                 >
                   Cancel

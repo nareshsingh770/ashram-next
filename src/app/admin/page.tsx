@@ -1,8 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store";
+import { userLogin } from "@/server/actions/auth.actions";
+import { loginUser } from "@/store/slices/userSlice";
 
 const AdminLoginPage = () => {
   const [credentials, setCredentials] = useState({
@@ -10,6 +12,7 @@ const AdminLoginPage = () => {
     password: "",
   });
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
   const [error, setError] = useState("");
   const router = useRouter();
   const { userDetails, isAuthenticated } = useSelector(
@@ -31,14 +34,15 @@ const AdminLoginPage = () => {
     try {
       // TODO: Implement actual admin authentication
       // For now, simulate login
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const formData = new FormData();
+      formData.append("email", credentials.email);
+      formData.append("password", credentials.password);
 
+      const res = await userLogin(null, formData);
+      console.log("Login response:", res);
       // Simulate successful login
-      if (
-        credentials.email === "admin@ashram.com" &&
-        credentials.password === "admin123"
-      ) {
-        // TODO: Store admin token/session
+      if (res?.message && res?.userDetails?.role === "admin") {
+        dispatch(loginUser(res.userDetails));
         router.push("/admin/dashboard");
       } else {
         setError("Invalid admin credentials");
