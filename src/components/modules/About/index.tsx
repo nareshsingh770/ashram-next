@@ -6,7 +6,7 @@ import Button from "@/components/atoms/Button";
 
 const Index = () => {
   return (
-    <section className="relative bg-linear-to-b from-slate-800 to-slate-700 text-white py-20">
+    <section className="relative bg-linear-to-b from-slate-800 to-slate-700 text-white py-32">
       <div className="layout-spacing">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div className="flex justify-center w-full">

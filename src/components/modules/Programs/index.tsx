@@ -21,7 +21,7 @@ const Index = () => {
     },
   ];
   return (
-    <section className="bg-slate-50 py-16">
+    <section className="bg-slate-50 py-30">
       <div className="layout-spacing text-center">
         <Heading
           title="PROGRAMS"
@@ -39,9 +39,11 @@ const Index = () => {
                 alt={p.title}
                 className="h-40 w-full object-cover"
               />
-              <div className="p-6">
-                <h4 className="font-semibold text-slate-800 mb-2">{p.title}</h4>
-                <p className="text-sm text-slate-600 mb-4">{p.desc}</p>
+              <div className="px-6 py-10">
+                <h4 className="font-semibold text-slate-800 mb-5 text-2xl">
+                  {p.title}
+                </h4>
+                <p className="text-sm text-slate-600 text-sm mb-6">{p.desc}</p>
                 <Button text="Know More" />
               </div>
             </div>

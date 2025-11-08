@@ -75,22 +75,9 @@ export const eventsAPI = {
     return apiHelpers.post("/events", data);
   },
 
-  // Update event
-  updateEvent: (eventId: string, data: any) => {
-    // Check if data is FormData (has image)
-    if (data instanceof FormData) {
-      return apiClient.patch(`/events/${eventId}`, data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-    }
-    // Otherwise send as JSON
-    return apiHelpers.patch(`/events/${eventId}`, data);
-  },
-
   // Delete event
-  deleteEvent: (eventId: string) => apiHelpers.delete(`/events/${eventId}`),
+  deleteEvent: (eventId: string) =>
+    apiHelpers.delete(`/events/delete/${eventId}`),
 };
 
 // Example: File upload API

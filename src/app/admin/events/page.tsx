@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { eventsAPI } from "@/services/api";
 import { useDispatch, useSelector } from "react-redux";
-import { getEventList } from "@/store/slices/eventSlice";
+import { deleteEventThunk, getEventList } from "@/store/slices/eventSlice";
 import { Event, EventFormData } from "@/types/event";
 import { RootState, AppDispatch } from "@/store";
 
@@ -139,7 +139,7 @@ const AdminEventsPage = () => {
 
   const handleDelete = (id: string) => {
     if (confirm("Are you sure you want to delete this event?")) {
-      //setEvents((prev) => prev.filter((event) => event.id !== id));
+      dispatch(deleteEventThunk(id));
     }
   };
 
@@ -445,24 +445,9 @@ const AdminEventsPage = () => {
                       </div>
                     </div>
                     <div className="shrink-0 flex space-x-2">
-                      <button className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                          />
-                        </svg>
-                      </button>
                       <button
-                        //onClick={() => handleDelete(event.id)}
-                        className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                        onClick={() => handleDelete(event.id)}
+                        className="p-2 text-red-600 cursor-pointer hover:bg-red-50 rounded-lg transition-colors"
                       >
                         <svg
                           className="w-4 h-4"

@@ -8,7 +8,7 @@ const Index = () => {
     setDonation(value);
   }
   return (
-    <section className="bg-slate-50 py-16">
+    <section className="bg-slate-50 py-30">
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-start">
         <div>
           <h3 className="text-sky-400 text-sm tracking-widest mb-2">

@@ -1,5 +1,5 @@
 import { setRequestLocale } from "next-intl/server";
-import Home from "@/components/atoms/Homepage";
+import Home from "@/components/pages/Homepage";
 
 export default async function LocalePage({
   params,

@@ -6,7 +6,7 @@ const Index = () => {
   const t = useTranslations("home");
   return (
     <section
-      className="relative bg-cover bg-center"
+      className="relative bg-cover bg-center h-[700px]"
       style={{
         backgroundImage: "url('/images/header-bg.png')",
       }}

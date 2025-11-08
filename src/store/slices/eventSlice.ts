@@ -8,12 +8,24 @@ const initialState: EventState = {
   error: null,
 };
 
-// Async thunks
 export const getEventList = createAsyncThunk(
   "event/getEventList",
   async (_, { rejectWithValue }) => {
     try {
       const response = await eventsAPI.getEvents();
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to fetch events"
+      );
+    }
+  }
+);
+export const deleteEventThunk = createAsyncThunk(
+  "event/deleteEvent",
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const response = await eventsAPI.deleteEvent(id);
       return response.data;
     } catch (error: any) {
       return rejectWithValue(

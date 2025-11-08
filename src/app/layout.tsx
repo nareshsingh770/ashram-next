@@ -1,14 +1,19 @@
 import "@/app/globals.css";
-import { Poppins } from "next/font/google";
 import StoreProvider from "@/store/StoreProvider";
 import AuthProvider from "@/components/AuthProvider";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { Poppins, Lora } from "next/font/google";
 
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "700"],
   variable: "--font-poppins",
+});
+const lora = Lora({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-lora",
 });
 
 export default async function RootLayout({
@@ -21,7 +26,7 @@ export default async function RootLayout({
   const messages = await getMessages({ locale });
 
   return (
-    <html lang={locale} className={poppins.variable}>
+    <html lang={locale} className={`${poppins.variable} ${lora.variable}`}>
       <body>
         <StoreProvider>
           <AuthProvider>
