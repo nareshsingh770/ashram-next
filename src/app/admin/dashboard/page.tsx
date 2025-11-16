@@ -274,7 +274,10 @@ const AdminDashboard = () => {
                     </svg>
                   </div>
                 </button>
-                <button className="w-full text-left p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                <button
+                  onClick={() => router.push("/admin/books/upload")}
+                  className="w-full text-left p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                >
                   <div className="flex items-center justify-between">
                     <div>
                       <h4 className="font-medium text-gray-900">Programs</h4>

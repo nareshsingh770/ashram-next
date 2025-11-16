@@ -42,6 +42,7 @@ const Header = () => {
             <button className="text-sm bg-sky-600 text-white px-4 py-2 rounded-full hover:bg-sky-700">
               Donate
             </button>
+            <LocaleSwitcher />
 
             {isAuthenticated && userDetails ? (
               <div className="flex items-center gap-3">

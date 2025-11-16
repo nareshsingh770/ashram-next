@@ -43,7 +43,7 @@ const Index = () => {
                 <h4 className="font-semibold text-slate-800 mb-5 text-2xl">
                   {p.title}
                 </h4>
-                <p className="text-sm text-slate-600 text-sm mb-6">{p.desc}</p>
+                <p className="text-sm text-slate-600 mb-6">{p.desc}</p>
                 <Button text="Know More" />
               </div>
             </div>

@@ -8,6 +8,7 @@ import Donation from "../modules/Donation";
 import Hero from "../modules/Hero";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
+import ProductList from "../modules/ProductListing/ProductList";
 
 export default function Home() {
   const { userDetails } = useSelector((state: RootState) => state.user);
@@ -22,6 +23,9 @@ export default function Home() {
 
       {/* About */}
       <About />
+
+      {/* Product Listing */}
+      <ProductList />
 
       {/* Events */}
       <UpcomingEvent />

@@ -41,7 +41,7 @@ export default function LocaleSwitcher() {
     <select
       value={locale}
       onChange={handleChange}
-      className="border p-2 rounded"
+      className="border p-2 rounded bg-white"
     >
       {LOCALES.map((loc) => (
         <option key={loc} value={loc}>
