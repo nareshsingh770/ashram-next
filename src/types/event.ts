@@ -24,3 +24,8 @@ export interface EventState {
   isLoading: boolean;
   error: string | null;
 }
+export interface Books {
+  books: any[];
+  isLoading: boolean;
+  error: string | null;
+}

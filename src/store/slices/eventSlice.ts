@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { eventsAPI } from "@/services/api";
-import { Event, EventState } from "@/types/event";
+import { EventState } from "@/types/event";
 
 const initialState: EventState = {
   eventList: [],

@@ -79,6 +79,22 @@ export const eventsAPI = {
   deleteEvent: (eventId: string) =>
     apiHelpers.delete(`/events/delete/${eventId}`),
 };
+export const booksAPI = {
+  // Get all books
+  getBooks: () => apiHelpers.get("/books"),
+
+  // Create new book
+  createBook: (data: any) => {
+    if (data instanceof FormData) {
+      return apiClient.post("/books/upload", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    }
+    return apiHelpers.post("/books/upload", data);
+  },
+};
 
 // Example: File upload API
 export const uploadAPI = {

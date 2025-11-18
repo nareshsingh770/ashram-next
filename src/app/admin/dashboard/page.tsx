@@ -280,9 +280,11 @@ const AdminDashboard = () => {
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="font-medium text-gray-900">Programs</h4>
+                      <h4 className="font-medium text-gray-900">
+                        Upload Books
+                      </h4>
                       <p className="text-sm text-gray-500">
-                        Manage spiritual programs and courses
+                        Upload and Delete Books
                       </p>
                     </div>
                     <svg

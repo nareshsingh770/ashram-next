@@ -1,8 +1,15 @@
 import Heading from "@/components/atoms/Heading";
 import ProductCards from "@/components/common/ProductCards";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store";
+import { getBooks } from "@/store/slices/bookSlice";
 
 const ProductList = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    dispatch(getBooks());
+  }, []);
   return (
     <div className="layout-spacing mx-auto px-6 py-32 text-center">
       <Heading
