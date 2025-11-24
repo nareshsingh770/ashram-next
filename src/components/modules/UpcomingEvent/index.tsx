@@ -84,7 +84,7 @@ const Index = () => {
                 )}
                 <div className="p-4 flex-1 relative pl-20">
                   <div className="flex items-baseline gap-4 justify-center">
-                    <div className="absolute left-[-60] font-semibold min-w-[60px] rounded-full bg-slate-100 p-4 flex-col aspect-square flex justify-center items-center">
+                    <div className="absolute left-[-60px] font-semibold min-w-[60px] rounded-full bg-slate-100 p-4 flex-col aspect-square flex justify-center items-center">
                       <div className="text-2xl font-bold text-gray-800">
                         {dateInfo.day} {dateInfo.month}
                       </div>
