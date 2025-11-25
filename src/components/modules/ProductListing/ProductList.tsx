@@ -1,26 +1,24 @@
+"use client";
 import Heading from "@/components/atoms/Heading";
 import ProductCards from "@/components/common/ProductCards";
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/store";
-import { getBooks } from "@/store/slices/bookSlice";
-import { booksAPI } from "@/services/api";
-import PDFReader from "../PdfReader";
+import React, { useEffect, useState } from "react";
+import PdfReader from "../PdfReader";
 
 const ProductList = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const [books, setBooks] = React.useState<string | null>(null);
+  const [books, setBooks] = useState<string>("");
+
   const fetchBook = async () => {
-    const response = await booksAPI.getBooks();
-    return response.data;
+    const response = await fetch("http://localhost:8000/api/v1/books");
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    return url;
   };
+
   useEffect(() => {
     const fetchBooksData = async () => {
       try {
-        const books = await fetchBook();
-        const blob = new Blob([books], { type: "application/pdf" });
-        const blobUrl = URL.createObjectURL(blob);
-        setBooks(blobUrl);
+        const booksData = await fetchBook();
+        setBooks(booksData);
       } catch (error) {
         console.error("Failed to fetch books:", error);
       }
@@ -40,6 +38,8 @@ const ProductList = () => {
           <ProductCards key={index} />
         ))}
       </div>
+
+      {books && <PdfReader file={books} />}
     </div>
   );
 };

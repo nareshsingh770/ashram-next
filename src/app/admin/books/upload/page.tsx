@@ -9,10 +9,7 @@ interface BookFormData {
   title: string;
   author: string;
   description: string;
-  category: string;
   language: string;
-  publishedYear: string;
-  isbn: string;
   coverImage: File | null;
   pdfFile: File | null;
 }
@@ -30,10 +27,7 @@ const Page = () => {
     title: "qwerty",
     author: "Naresh singh",
     description: "lorem ipsum is awesome",
-    category: "Yoga",
     language: "English",
-    publishedYear: "2021",
-    isbn: "HDJK23",
     coverImage: null,
     pdfFile: null,
   });
@@ -124,10 +118,7 @@ const Page = () => {
       uploadFormData.append("title", formData.title);
       uploadFormData.append("author", formData.author);
       uploadFormData.append("description", formData.description);
-      uploadFormData.append("category", formData.category);
       uploadFormData.append("language", formData.language);
-      uploadFormData.append("publishedYear", formData.publishedYear);
-      uploadFormData.append("isbn", formData.isbn);
       if (formData.coverImage) {
         uploadFormData.append("coverImage", formData.coverImage);
       }
@@ -353,155 +344,86 @@ const Page = () => {
                 />
               </div>
 
-              {/* Category and Language */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label
-                    htmlFor="category"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Category <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    id="category"
-                    name="category"
-                    required
-                    value={formData.category}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                  >
-                    <option value="">Select category</option>
-                    <option value="Spiritual">Spiritual</option>
-                    <option value="Philosophy">Philosophy</option>
-                    <option value="Meditation">Meditation</option>
-                    <option value="Yoga">Yoga</option>
-                    <option value="Biography">Biography</option>
-                    <option value="History">History</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="language"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Language
-                  </label>
-                  <select
-                    id="language"
-                    name="language"
-                    value={formData.language}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                  >
-                    <option value="English">English</option>
-                    <option value="Hindi">Hindi</option>
-                    <option value="Sanskrit">Sanskrit</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* Published Year and ISBN */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label
-                    htmlFor="publishedYear"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Published Year
-                  </label>
-                  <input
-                    type="text"
-                    id="publishedYear"
-                    name="publishedYear"
-                    value={formData.publishedYear}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                    placeholder="YYYY"
-                    pattern="[0-9]{4}"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="isbn"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    ISBN
-                  </label>
-                  <input
-                    type="text"
-                    id="isbn"
-                    name="isbn"
-                    value={formData.isbn}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                    placeholder="Enter ISBN"
-                  />
-                </div>
-              </div>
-
-              {/* Cover Image */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Cover Image (Optional)
+                <label
+                  htmlFor="language"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Language
                 </label>
-                <div className="flex items-center space-x-4">
-                  {formData.coverImage && (
-                    <div className="relative">
-                      <img
-                        src={URL.createObjectURL(formData.coverImage)}
-                        alt="Cover preview"
-                        className="h-32 w-24 object-cover rounded border border-gray-300"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setFormData((prev) => ({
-                            ...prev,
-                            coverImage: null,
-                          }));
-                          if (coverInputRef.current)
-                            coverInputRef.current.value = "";
-                        }}
-                        className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
+                <select
+                  id="language"
+                  name="language"
+                  value={formData.language}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                >
+                  <option value="English">English</option>
+                  <option value="Hindi">Hindi</option>
+                  <option value="Sanskrit">Sanskrit</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Cover Image */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Cover Image (Optional)
+              </label>
+              <div className="flex items-center space-x-4">
+                {formData.coverImage && (
+                  <div className="relative">
+                    <img
+                      src={URL.createObjectURL(formData.coverImage)}
+                      alt="Cover preview"
+                      className="h-32 w-24 object-cover rounded border border-gray-300"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          coverImage: null,
+                        }));
+                        if (coverInputRef.current)
+                          coverInputRef.current.value = "";
+                      }}
+                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
+                    >
+                      <svg
+                        className="h-4 w-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
                       >
-                        <svg
-                          className="h-4 w-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M6 18L18 6M6 6l12 12"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  )}
-                  <button
-                    type="button"
-                    onClick={() => coverInputRef.current?.click()}
-                    className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
-                  >
-                    {formData.coverImage ? "Change Image" : "Upload Cover"}
-                  </button>
-                  <input
-                    ref={coverInputRef}
-                    type="file"
-                    accept="image/jpeg,image/png,image/webp"
-                    onChange={handleCoverImageChange}
-                    className="hidden"
-                  />
-                  <p className="text-xs text-gray-500">
-                    Max 5MB (JPEG, PNG, WebP)
-                  </p>
-                </div>
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                )}
+                <button
+                  type="button"
+                  onClick={() => coverInputRef.current?.click()}
+                  className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
+                >
+                  {formData.coverImage ? "Change Image" : "Upload Cover"}
+                </button>
+                <input
+                  ref={coverInputRef}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  onChange={handleCoverImageChange}
+                  className="hidden"
+                />
+                <p className="text-xs text-gray-500">
+                  Max 5MB (JPEG, PNG, WebP)
+                </p>
               </div>
             </div>
           </div>
