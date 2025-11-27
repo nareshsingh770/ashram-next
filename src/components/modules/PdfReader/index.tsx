@@ -131,7 +131,7 @@ const PdfReader = ({ file }: { file: string }) => {
             >
               ↺
             </button>
-            <span className="text-sm font-medium min-w-[40px] text-center">
+            <span className="text-sm font-medium min-w-10 text-center">
               {rotation}°
             </span>
             <button

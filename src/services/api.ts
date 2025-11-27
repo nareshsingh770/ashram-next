@@ -83,6 +83,8 @@ export const booksAPI = {
   // Get all books
   getBooks: () => apiHelpers.get("/books"),
 
+  getBookDetail: (bookId: string) => apiHelpers.get(`/books/${bookId}`),
+
   // Create new book
   createBook: (data: any) => {
     if (data instanceof FormData) {

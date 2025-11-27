@@ -32,3 +32,12 @@ interface EventState {
   isLoading: boolean;
   error: string | null;
 }
+
+type Book = {
+  id: string;
+  title: string;
+  author: string;
+  coverImage: string;
+  filePath: string;
+  description?: string;
+};

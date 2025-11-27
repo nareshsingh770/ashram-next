@@ -70,6 +70,19 @@ const bookSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload as string;
       });
+    builder
+      .addCase(getBooks.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getBooks.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.books = action.payload;
+      })
+      .addCase(getBooks.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload as string;
+      });
   },
 });
 
